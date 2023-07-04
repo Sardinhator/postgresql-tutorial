@@ -25,10 +25,12 @@ Create a table named "employees" with the following columns:
 
 Insert three records into the "employees" table with sample data.
 
-Exercise 4:
+## Exercise 4
+
 Retrieve all records from the "employees" table.
 
-Exercise 5:
+## Exercise 5
+
 Update the salary of the employee with ID 1 to 5000.
 
 Exercise 6:

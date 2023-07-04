@@ -47,3 +47,27 @@ Shutting down the container and removing volumes
 ```shell
 docker compose down --volumes
 ```
+
+## Using Postgresql CLI
+
+```shell
+ psql -h localhost -p 5432 -U postgres -W
+```
+
+In this command:
+
+- `-h localhost` specifies the host, which is `localhost` because the PostgreSQL server is running on your local machine.
+- `-p 5432` specifies the port.
+- `-U postgres` specifies the user. The PostgreSQL Docker image creates a `postgres` user by default.
+- `-W` forces `psql` to prompt for a password. Enter the password you set for the `POSTGRES_PASSWORD` environment variable when you started the Docker container.
+
+### Example
+
+```shell
+❯ psql -h localhost -p 5432 -U postgres -W
+Mot de passe :
+psql (15.3 (Ubuntu 15.3-1.pgdg22.10+1))
+Saisissez « help » pour l'aide.
+
+postgres=#
+```

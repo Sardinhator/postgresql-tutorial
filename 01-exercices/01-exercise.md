@@ -41,10 +41,12 @@ Delete the record of the employee with ID 2 from the "employees" table.
 
 Add a new column named "department" of type text to the "employees" table.
 
-Exercise 8:
+## Exercise 8
+
 Alter the "employees" table to rename the column "age" to "years_of_experience".
 
-Exercise 9:
+## Exercise 9
+
 Create a new table named "departments" with the following columns:
 
 - id (integer, primary key)

@@ -15,12 +15,14 @@ Create a table named "employees" with the following columns:
 
 ```text
 - id (integer, primary key)
-- name (text)
+- firstname (text)
+- lastname (text)
 - age (integer)
 - salary (numeric)
 ```
 
-Exercise 3:
+## Exercise 3
+
 Insert three records into the "employees" table with sample data.
 
 Exercise 4:

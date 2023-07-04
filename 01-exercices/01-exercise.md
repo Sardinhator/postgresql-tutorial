@@ -52,7 +52,15 @@ Create a new table named "departments" with the following columns:
 - id (integer, primary key)
 - name (text)
 
-Exercise 10:
-Write a query to join the "employees" and "departments" tables based on the department ID and retrieve the employee name, department name, and salary.
+## Exercise 10
 
-These exercises cover basic concepts such as database creation, table creation, data insertion, retrieval, updates, deletions, column additions, table alterations, and table joins. They should provide a good starting point for practicing and familiarizing yourself with PostgreSQL 10.
+1. Create a new database named `acme_db`.
+2. Create a table `employees` with the following fields:
+   1. id (PRIMARY KEY)
+   2. first name (TEXT)
+   3. last name (TEXT)
+   4. birthday (date)
+   5. department id (FOREIGN KEY)
+3. Create a table named `departments` with the following fields:
+   1. id (integer, primary key)
+   2. name (text)

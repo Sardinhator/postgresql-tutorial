@@ -33,10 +33,12 @@ Retrieve all records from the "employees" table.
 
 Update the salary of the employee with ID 1 to 5000.
 
-Exercise 6:
+## Exercise 6
+
 Delete the record of the employee with ID 2 from the "employees" table.
 
-Exercise 7:
+## Exercise 7
+
 Add a new column named "department" of type text to the "employees" table.
 
 Exercise 8:

@@ -582,6 +582,8 @@ Assume we have two tables, `customers` and `orders`, with the following structur
 
 ### JOIN (INNER JOIN)
 
+![inner join](images/inner-join.png)
+
 The `JOIN` or `INNER JOIN` combines rows from two or more tables based on a related column between them. It returns only the matching rows from both tables.
 
 Syntax:
@@ -601,6 +603,8 @@ INNER JOIN orders ON customers.customer_id = orders.customer_id;
 ```
 
 ### LEFT JOIN (or LEFT OUTER JOIN)
+
+![left outer joint](images/left-outer-join.png)
 
 The `LEFT JOIN` retrieves all rows from the left table and the matching rows from the right table. If there are no matches, NULL values are returned for the right table columns.
 
@@ -624,6 +628,8 @@ LEFT JOIN orders ON customers.customer_id = orders.customer_id;
 
 ### RIGHT JOIN (or RIGHT OUTER JOIN)
 
+![right outer join](images/right-outer-join.png)
+
 The `RIGHT JOIN` is similar to the `LEFT JOIN`, but it retrieves all rows from the right table and the matching rows from the left table. If there are no matches, NULL values are returned for the left table columns.
 
 Syntax:
@@ -645,6 +651,8 @@ RIGHT JOIN orders ON customers.customer_id = orders.customer_id;
 ```
 
 ### FULL JOIN (or FULL OUTER JOIN)
+
+![full join](images/full-join.png)
 
 The `FULL JOIN` retrieves all rows from both tables, regardless of whether they have a match. If there is no match, NULL values are returned for the columns of the non-matching table.
 

@@ -85,3 +85,73 @@ SELECT * FROM employees WHERE first_name LIKE 'Smi!_%' ESCAPE '!';
 This query will retrieve all employees whose first name starts with "Smi\_" where the underscore is matched literally.
 
 These examples demonstrate different ways to perform string searches in a PostgreSQL database. You can customize the queries based on your specific search requirements and use cases. Remember to replace `table_name` and `column_name` with the actual table and column names in your database.
+
+## Matching against multiple possible values
+
+Here's a guide to performing SQL queries for matching against multiple possible values using the `IN` operator, both with and without `subqueries`, with examples:
+
+### Using the IN Operator with a List of Values
+
+To match against multiple possible values using the `IN` operator, you can specify a comma-separated list of values enclosed in parentheses.
+
+```sql
+SELECT * FROM table_name WHERE column_name IN (value1, value2, value3, ...);
+```
+
+Example:
+
+```sql
+SELECT * FROM employees WHERE department_id IN (1, 3, 5);
+```
+
+This query will retrieve all employees whose department_id is either 1, 3, or 5.
+
+### Using the IN Operator with a Subquery
+
+The `IN` operator can also be used with a subquery to match against multiple values derived from another query.
+
+```sql
+SELECT * FROM table_name WHERE column_name IN (SELECT ... FROM ...);
+```
+
+Example:
+
+```sql
+SELECT * FROM employees WHERE department_id IN (SELECT id FROM departments WHERE name LIKE 'Sales%');
+```
+
+This query will retrieve all employees whose department_id matches the id values obtained from the subquery, which selects the department IDs of departments with names starting with "Sales".
+
+### Using the NOT IN Operator
+
+You can use the `NOT IN` operator to exclude rows that match the specified values or subquery results.
+
+```sql
+SELECT * FROM table_name WHERE column_name NOT IN (value1, value2, value3, ...);
+```
+
+Example:
+
+```sql
+SELECT * FROM employees WHERE department_id NOT IN (2, 4);
+```
+
+This query will retrieve all employees whose department_id is neither 2 nor 4.
+
+### Using a Subquery to Match Against Multiple Columns
+
+You can also use a subquery to match against multiple columns by combining the `IN` operator with multiple columns in the subquery's select clause.
+
+```sql
+SELECT * FROM table_name WHERE (column1, column2) IN (SELECT ... FROM ...);
+```
+
+Example:
+
+```sql
+SELECT * FROM employees WHERE (first_name, last_name) IN (SELECT first_name, last_name FROM employees_archive);
+```
+
+This query will retrieve all employees whose first name and last name match the corresponding values in the subquery, which selects the first name and last name from an "employees_archive" table.
+
+By utilizing the `IN` operator, you can easily match against multiple possible values or subquery results, allowing for more flexible and targeted SQL queries. Remember to replace `table_name`, `column_name`, and other placeholders with the actual table and column names in your database.

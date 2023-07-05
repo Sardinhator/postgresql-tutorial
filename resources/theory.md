@@ -559,6 +559,8 @@ These examples demonstrate various simple aggregations in SQL. You can customize
 
 ## JOINS
 
+Joining allows you to combine related information from multiple tables to answer a question. This isn't just beneficial for ease of querying: a lack of join capability encourages _denormalisation_ of data, which increases the complexity of keeping your data internally consistent.
+
 Assume we have two tables, `customers` and `orders`, with the following structure and sample data:
 
 - Table: customers

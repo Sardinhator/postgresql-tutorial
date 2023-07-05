@@ -383,3 +383,88 @@ WHERE NOT EXISTS (
 In this example, the `NOT EXISTS` subquery checks for rows in `table_name` with the same values of `column1`, `column2`, etc., but with a lower `id`. Only rows that do not have matching duplicates are returned.
 
 These examples provide different approaches to remove duplicates from an SQL query. Choose the method that suits your specific scenario and adjust the column names and table names as per your database structure.
+
+## Grouping results from multiple queries
+
+Here's a tutorial with examples on how to combine results from multiple queries in SQL:
+
+### Using UNION Operator
+
+The `UNION` operator combines the results of two or more `SELECT` statements into a single result set, removing any duplicate rows.
+
+Example:
+
+```sql
+SELECT column1, column2, ...
+FROM table1
+UNION
+SELECT column1, column2, ...
+FROM table2;
+```
+
+In this example, the `UNION` operator combines the results of two queries, each selecting columns from different tables. The result set will contain distinct rows from both tables.
+
+### Using UNION ALL Operator
+
+The `UNION ALL` operator also combines the results of two or more `SELECT` statements into a single result set. However, it retains all rows, including duplicates.
+
+Example:
+
+```sql
+SELECT column1, column2, ...
+FROM table1
+UNION ALL
+SELECT column1, column2, ...
+FROM table2;
+```
+
+In this example, the `UNION ALL` operator combines the results of two queries, including all rows from both tables, even if there are duplicates.
+
+### Using JOIN Operation
+
+You can use the `JOIN` operation to combine results from multiple queries based on a common column or condition.
+
+Example:
+
+```sql
+SELECT t1.column1, t1.column2, t2.column3, ...
+FROM table1 t1
+JOIN table2 t2 ON t1.common_column = t2.common_column;
+```
+
+In this example, the `JOIN` operation combines results from `table1` and `table2` based on the `common_column` that exists in both tables.
+
+### Using Subqueries
+
+You can use subqueries to combine results from multiple queries by nesting them within the main query.
+
+Example:
+
+```sql
+SELECT column1, column2, ...
+FROM (
+    SELECT column1, column2, ...
+    FROM table1
+    UNION
+    SELECT column1, column2, ...
+    FROM table2
+) subquery;
+```
+
+In this example, the subqueries within parentheses retrieve results from `table1` and `table2`. The outer query then combines the results from both subqueries.
+
+### Using CROSS JOIN
+
+A `CROSS JOIN` operation combines all possible combinations of rows from multiple tables, resulting in a Cartesian product.
+
+Example:
+
+```sql
+SELECT column1, column2, ...
+FROM table1
+CROSS JOIN table2;
+```
+
+In this example, the `CROSS JOIN` operation combines all rows from `table1` with all rows from `table2`, resulting in a combination of all possible pairs.
+
+These examples demonstrate different methods for combining results from multiple queries in SQL. Choose the approach that suits your specific scenario and adjust the column names and table names accordingly.

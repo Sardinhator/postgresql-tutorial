@@ -712,3 +712,8 @@ WHERE c1.customer_id <> c2.customer_id;
 ```
 
 These are the main types of joins in SQL. Each join serves a different purpose and allows you to combine data from multiple tables based on specific conditions. Choose the appropriate join type based on your requirements and adjust the table names and join conditions accordingly.
+
+- Left circle A
+- Right circle B
+
+![joins](images/PostgreSQL-Joins.png)

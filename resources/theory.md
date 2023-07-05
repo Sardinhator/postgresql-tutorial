@@ -155,3 +155,65 @@ SELECT * FROM employees WHERE (first_name, last_name) IN (SELECT first_name, las
 This query will retrieve all employees whose first name and last name match the corresponding values in the subquery, which selects the first name and last name from an "employees_archive" table.
 
 By utilizing the `IN` operator, you can easily match against multiple possible values or subquery results, allowing for more flexible and targeted SQL queries. Remember to replace `table_name`, `column_name`, and other placeholders with the actual table and column names in your database.
+
+## Classify results into buckets
+
+Here are some examples of how to classify results into buckets using SQL queries:
+
+### Using CASE Statement for Simple Bucket Classification
+
+You can use the `CASE` statement in SQL to classify results into buckets based on specific conditions.
+
+Example:
+
+```sql
+SELECT column_name,
+       CASE
+           WHEN column_name < 10 THEN 'Bucket 1'
+           WHEN column_name >= 10 AND column_name < 20 THEN 'Bucket 2'
+           ELSE 'Bucket 3'
+       END AS bucket
+FROM table_name;
+```
+
+In this example, the results are classified into three buckets based on the value of `column_name`. Values less than 10 are assigned to "Bucket 1," values between 10 and 19 (inclusive) are assigned to "Bucket 2," and all other values are assigned to "Bucket 3."
+
+### Using RANGE Condition for Bucket Classification
+
+You can use range conditions in SQL to classify results into buckets based on a specific range of values.
+
+Example:
+
+```sql
+SELECT column_name,
+       CASE
+           WHEN column_name BETWEEN 0 AND 9 THEN 'Bucket 1'
+           WHEN column_name BETWEEN 10 AND 19 THEN 'Bucket 2'
+           ELSE 'Bucket 3'
+       END AS bucket
+FROM table_name;
+```
+
+In this example, the results are classified into three buckets based on the range of values in `column_name`. Values between 0 and 9 (inclusive) are assigned to "Bucket 1," values between 10 and 19 (inclusive) are assigned to "Bucket 2," and all other values are assigned to "Bucket 3."
+
+### Using Named Buckets with Subquery or Common Table Expression (CTE)
+
+You can define named buckets using subqueries or common table expressions (CTEs) and then join them to the main query for bucket classification.
+
+Example using a Subquery:
+
+```sql
+SELECT t.column_name, b.bucket_name
+FROM table_name t
+JOIN (
+    SELECT 'Bucket 1' AS bucket_name, 0 AS lower_limit, 9 AS upper_limit
+    UNION ALL
+    SELECT 'Bucket 2' AS bucket_name, 10 AS lower_limit, 19 AS upper_limit
+    UNION ALL
+    SELECT 'Bucket 3' AS bucket_name, 20 AS lower_limit, 9999 AS upper_limit
+) b ON t.column_name >= b.lower_limit AND t.column_name <= b.upper_limit;
+```
+
+In this example, the results are classified into buckets based on named ranges defined in the subquery. Each bucket has a lower and upper limit, and the main query joins the subquery based on the conditions to assign the appropriate bucket name.
+
+These examples demonstrate how to classify results into buckets using SQL queries. You can customize the bucket ranges, conditions, and bucket names based on your specific requirements. Replace `column_name` and `table_name` with the actual column and table names from your database.

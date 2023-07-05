@@ -468,3 +468,91 @@ CROSS JOIN table2;
 In this example, the `CROSS JOIN` operation combines all rows from `table1` with all rows from `table2`, resulting in a combination of all possible pairs.
 
 These examples demonstrate different methods for combining results from multiple queries in SQL. Choose the approach that suits your specific scenario and adjust the column names and table names accordingly.
+
+## Simple aggregations
+
+Here's a tutorial with examples for performing simple aggregations in SQL:
+
+## COUNT
+
+The `COUNT` function calculates the number of rows or non-null values in a column.
+
+Example:
+
+```sql
+SELECT COUNT(*) FROM table_name;                  -- Counts all rows in the table
+SELECT COUNT(column_name) FROM table_name;        -- Counts non-null values in a specific column
+```
+
+### SUM
+
+The `SUM` function calculates the sum of numeric values in a column.
+
+Example:
+
+```sql
+SELECT SUM(column_name) FROM table_name;
+```
+
+### AVG
+
+The `AVG` function calculates the average of numeric values in a column.
+
+Example:
+
+```sql
+SELECT AVG(column_name) FROM table_name;
+```
+
+### MIN
+
+The `MIN` function retrieves the minimum value from a column.
+
+Example:
+
+```sql
+SELECT MIN(column_name) FROM table_name;
+```
+
+### MAX
+
+The `MAX` function retrieves the maximum value from a column.
+
+Example:
+
+```sql
+SELECT MAX(column_name) FROM table_name;
+```
+
+**6. GROUP BY:**
+The `GROUP BY` clause is used to group rows based on specific columns and perform aggregations on each group.
+
+Example:
+
+```sql
+SELECT column1, COUNT(*) FROM table_name GROUP BY column1;     -- Counts occurrences of each value in column1
+SELECT column1, AVG(column2) FROM table_name GROUP BY column1; -- Calculates average of column2 for each value in column1
+```
+
+### HAVING
+
+The `HAVING` clause is used to filter the groups created by the `GROUP BY` clause based on specific conditions.
+
+Example:
+
+```sql
+SELECT column1, COUNT(*) FROM table_name GROUP BY column1 HAVING COUNT(*) > 5;   -- Retrieves groups with count greater than 5
+SELECT column1, AVG(column2) FROM table_name GROUP BY column1 HAVING AVG(column2) > 50;  -- Retrieves groups with average greater than 50
+```
+
+### WITH ROLLUP
+
+The `WITH ROLLUP` modifier produces a result set that includes subtotal and total rows for grouped data.
+
+Example:
+
+```sql
+SELECT column1, COUNT(*) FROM table_name GROUP BY column1 WITH ROLLUP;  -- Includes subtotal and total rows
+```
+
+These examples demonstrate various simple aggregations in SQL. You can customize the queries by replacing `table_name` with the actual table name and `column_name` with the appropriate column name from your database.

@@ -556,3 +556,159 @@ SELECT column1, COUNT(*) FROM table_name GROUP BY column1 WITH ROLLUP;  -- Inclu
 ```
 
 These examples demonstrate various simple aggregations in SQL. You can customize the queries by replacing `table_name` with the actual table name and `column_name` with the appropriate column name from your database.
+
+## JOINS
+
+Assume we have two tables, `customers` and `orders`, with the following structure and sample data:
+
+- Table: customers
+
+| customer_id | customer_name |
+| ----------- | ------------- |
+| 1           | John          |
+| 2           | Emily         |
+| 3           | Michael       |
+
+- Table: orders
+
+| order_id | customer_id | order_date |
+| -------- | ----------- | ---------- |
+| 101      | 1           | 2022-01-15 |
+| 102      | 1           | 2022-02-10 |
+| 103      | 2           | 2022-03-05 |
+| 104      | 3           | 2022-04-20 |
+
+### JOIN (INNER JOIN)
+
+The `JOIN` or `INNER JOIN` combines rows from two or more tables based on a related column between them. It returns only the matching rows from both tables.
+
+Syntax:
+
+```sql
+SELECT t1.column1, t2.column2, ...
+FROM table1 t1
+INNER JOIN table2 t2 ON t1.common_column = t2.common_column;
+```
+
+Example: Retrieve customer names along with their corresponding orders.
+
+```sql
+SELECT customers.customer_name, orders.order_id, orders.order_date
+FROM customers
+INNER JOIN orders ON customers.customer_id = orders.customer_id;
+```
+
+### LEFT JOIN (or LEFT OUTER JOIN)
+
+The `LEFT JOIN` retrieves all rows from the left table and the matching rows from the right table. If there are no matches, NULL values are returned for the right table columns.
+
+Syntax:
+
+```sql
+SELECT t1.column1, t2.column2, ...
+FROM table1 t1
+LEFT JOIN table2 t2 ON t1.common_column = t2.common_column;
+```
+
+Example:
+
+Retrieve all customers and their orders, including customers without any orders.
+
+```sql
+SELECT customers.customer_name, orders.order_id, orders.order_date
+FROM customers
+LEFT JOIN orders ON customers.customer_id = orders.customer_id;
+```
+
+### RIGHT JOIN (or RIGHT OUTER JOIN)
+
+The `RIGHT JOIN` is similar to the `LEFT JOIN`, but it retrieves all rows from the right table and the matching rows from the left table. If there are no matches, NULL values are returned for the left table columns.
+
+Syntax:
+
+```sql
+SELECT t1.column1, t2.column2, ...
+FROM table1 t1
+RIGHT JOIN table2 t2 ON t1.common_column = t2.common_column;
+```
+
+Example:
+
+Retrieve all orders and their corresponding customers, including orders without any customer information.
+
+```sql
+SELECT customers.customer_name, orders.order_id, orders.order_date
+FROM customers
+RIGHT JOIN orders ON customers.customer_id = orders.customer_id;
+```
+
+### FULL JOIN (or FULL OUTER JOIN)
+
+The `FULL JOIN` retrieves all rows from both tables, regardless of whether they have a match. If there is no match, NULL values are returned for the columns of the non-matching table.
+
+Syntax:
+
+```sql
+SELECT t1.column1, t2.column2, ...
+FROM table1 t1
+FULL JOIN table2 t2 ON t1.common_column = t2.common_column;
+```
+
+Example:
+
+Retrieve all customers and orders, regardless of matching records. Include NULL values for non-matching records.
+
+```sql
+SELECT customers.customer_name, orders.order_id, orders.order_date
+FROM customers
+FULL JOIN orders ON customers.customer_id = orders.customer_id;
+```
+
+### CROSS JOIN
+
+A `CROSS JOIN` produces a Cartesian product of rows between two tables, resulting in a combination of all possible pairs.
+
+Syntax:
+
+```sql
+SELECT t1.column1, t2.column2, ...
+FROM table1 t1
+CROSS JOIN table2 t2;
+```
+
+Example:
+
+Retrieve all possible combinations of customers and orders.
+
+```sql
+SELECT customers.customer_name, orders.order_id, orders.order_date
+FROM customers
+CROSS JOIN orders;
+```
+
+### SELF JOIN
+
+A `SELF JOIN` is used to join a table with itself. It is helpful when you need to compare rows within the same table.
+
+Syntax:
+
+```sql
+SELECT t1.column1, t2.column2, ...
+FROM table t1
+JOIN table t2 ON t1.common_column = t2.common_column;
+```
+
+Example:
+
+Retrieve customers who have placed orders on the same day as other customers.
+
+```sql
+SELECT c1.customer_name, c2.customer_name, c2.order_date
+FROM customers c1
+JOIN orders o1 ON c1.customer_id = o1.customer_id
+JOIN orders o2 ON o1.order_date = o2.order_date
+JOIN customers c2 ON c2.customer_id = o2.customer_id
+WHERE c1.customer_id <> c2.customer_id;
+```
+
+These are the main types of joins in SQL. Each join serves a different purpose and allows you to combine data from multiple tables based on specific conditions. Choose the appropriate join type based on your requirements and adjust the table names and join conditions accordingly.

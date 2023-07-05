@@ -217,3 +217,169 @@ JOIN (
 In this example, the results are classified into buckets based on named ranges defined in the subquery. Each bucket has a lower and upper limit, and the main query joins the subquery based on the conditions to assign the appropriate bucket name.
 
 These examples demonstrate how to classify results into buckets using SQL queries. You can customize the bucket ranges, conditions, and bucket names based on your specific requirements. Replace `column_name` and `table_name` with the actual column and table names from your database.
+
+## Working with dates
+
+Certainly! Here's a comprehensive guide with examples of working with dates in SQL:
+
+### Retrieve Current Date and Time
+
+To retrieve the current date and time, you can use the `CURRENT_DATE` and `CURRENT_TIMESTAMP` functions.
+
+Example:
+
+```sql
+SELECT CURRENT_DATE;           -- Retrieves the current date
+SELECT CURRENT_TIMESTAMP;      -- Retrieves the current date and time
+```
+
+### Format Dates
+
+To format dates in a specific way, you can use the `TO_CHAR` function with appropriate format codes.
+
+Example:
+
+```sql
+SELECT TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD');      -- Formats date as 'YYYY-MM-DD'
+SELECT TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH:MI:SS');  -- Formats date and time as 'YYYY-MM-DD HH:MI:SS'
+```
+
+### Extract Parts of a Date
+
+You can extract specific parts of a date, such as year, month, day, etc., using the `EXTRACT` function.
+
+Example:
+
+```sql
+SELECT EXTRACT(YEAR FROM current_date);       -- Extracts the year from the current date
+SELECT EXTRACT(MONTH FROM current_date);      -- Extracts the month from the current date
+SELECT EXTRACT(DAY FROM current_date);        -- Extracts the day from the current date
+```
+
+### Perform Date Arithmetic
+
+You can perform arithmetic operations with dates, such as adding or subtracting days, months, or years.
+
+Example:
+
+```sql
+SELECT CURRENT_DATE + INTERVAL '7 days';       -- Adds 7 days to the current date
+SELECT CURRENT_DATE - INTERVAL '1 month';      -- Subtracts 1 month from the current date
+```
+
+### Filter by Date
+
+To filter rows based on specific date criteria, you can use comparison operators such as `<`, `>`, `=`, etc.
+
+Example:
+
+```sql
+SELECT * FROM table_name WHERE date_column > '2022-01-01';   -- Retrieves rows with date_column after '2022-01-01'
+```
+
+### Group by Date
+
+To group rows by a specific date part, such as year or month, you can use the `GROUP BY` clause with appropriate date functions.
+
+Example:
+
+```sql
+SELECT EXTRACT(YEAR FROM date_column) AS year, COUNT(*) AS count
+FROM table_name
+GROUP BY year;
+```
+
+### Calculate Date Differences
+
+To calculate the difference between two dates, you can use the `DATEDIFF` or `DATE_PART` function.
+
+Example:
+
+```sql
+SELECT DATEDIFF('day', start_date, end_date) AS day_diff    -- Calculates the difference in days
+FROM table_name;
+```
+
+### Working with Time Zones
+
+To work with dates in different time zones, you can use the `AT TIME ZONE` operator or the `SET TIME ZONE` command.
+
+Example:
+
+```sql
+SELECT current_timestamp AT TIME ZONE 'UTC';     -- Converts current timestamp to UTC
+SET TIME ZONE 'UTC';                             -- Sets the time zone to UTC for subsequent queries
+```
+
+These examples cover various aspects of working with dates in SQL. You can modify the queries and functions based on your specific database and requirements. Remember to replace `table_name` and `date_column` with the actual table and column names from your database.
+
+## Removing duplicates (Distinct)
+
+Here's a guideline with examples on how to remove duplicates from an SQL query:
+
+### Using DISTINCT Keyword
+
+The `DISTINCT` keyword eliminates duplicate rows from the query result. It considers the values of all selected columns to identify duplicates.
+
+Example:
+
+```sql
+SELECT DISTINCT column1, column2, ...
+FROM table_name;
+```
+
+In this example, the `DISTINCT` keyword ensures that only unique combinations of values from `column1`, `column2`, etc., are returned, effectively removing duplicate rows.
+
+### Using GROUP BY Clause
+
+You can use the `GROUP BY` clause to group rows by specific columns and then select an aggregate function like `MIN()`, `MAX()`, or `COUNT()` to choose a representative row from each group.
+
+Example:
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+GROUP BY column1, column2, ...;
+```
+
+In this example, the `GROUP BY` clause groups rows based on the specified columns, and each group is represented by a single row. Duplicate rows are eliminated.
+
+### Using ROW_NUMBER() Window Function
+
+The `ROW_NUMBER()` window function assigns a unique sequential number to each row within a specific partition. You can utilize this function to eliminate duplicates by selecting rows with a row number of 1.
+
+Example:
+
+```sql
+SELECT column1, column2, ...
+FROM (
+    SELECT column1, column2, ..., ROW_NUMBER() OVER (PARTITION BY column1, column2, ... ORDER BY column1) AS row_num
+    FROM table_name
+) subquery
+WHERE row_num = 1;
+```
+
+In this example, the `ROW_NUMBER()` function assigns a unique row number to each row within the specified columns. The outer query selects only rows with a row number of 1, effectively removing duplicates.
+
+### Using EXISTS or NOT EXISTS Subquery
+
+You can use the `EXISTS` or `NOT EXISTS` subquery to eliminate duplicates by checking the presence or absence of matching rows based on specific criteria.
+
+Example:
+
+```sql
+SELECT column1, column2, ...
+FROM table_name t1
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM table_name t2
+    WHERE t1.column1 = t2.column1
+    AND t1.column2 = t2.column2
+    ...
+    AND t1.id < t2.id
+);
+```
+
+In this example, the `NOT EXISTS` subquery checks for rows in `table_name` with the same values of `column1`, `column2`, etc., but with a lower `id`. Only rows that do not have matching duplicates are returned.
+
+These examples provide different approaches to remove duplicates from an SQL query. Choose the method that suits your specific scenario and adjust the column names and table names as per your database structure.
